@@ -74,17 +74,39 @@
         const key = params.get('key');
 
         $(function () {
-            $('form').submit(function () {
-                const name    = $('input[name="name"]').val();
-                const bangou = $('input[name="bangou"]').val();
-                const shushoujou  = $('input[name="shushoujou"]').val();
-                const keika  = $('input[name="keika"]').val();
-                const hatunetu = $('input[name="hatunetu"]').val();
-                const msg = `${name}\n${bangou}\n${shushoujou}\n${keika}\n${hatunetu}`;
-                sendText(msg);
-                return false;
-            });
-        });
+  $('form').submit(function () {
+    const name       = $('input[name="name"]').val();
+    const bangou     = $('input[name="bangou"]').val();
+    const shushoujou = $('input[name="shushoujou"]').val();
+    const keika      = $('input[name="keika"]').val();
+    const hatunetu   = $('input[name="hatunetu"]').val();
+
+    const msg = `${name}\n${bangou}\n${shushoujou}\n${keika}\n${hatunetu}`;
+
+    // ✅ スプレッドシートに送信
+    fetch("https://script.google.com/macros/s/AKfycbw1XgenTyInT0CtKky7CE_OiZGo2kfudKwz5tHZifZF-VgiIxIVafoqx6Zg4axo9O5h/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name,
+        bangou: bangou,
+        shushoujou: shushoujou,
+        keika: keika,
+        hatunetu: hatunetu
+      })
+    }).then(res => res.text())
+      .then(text => console.log("GAS応答:", text))
+      .catch(err => console.error("送信失敗", err));
+
+    // ✅ LINEに送信（今まで通り）
+    sendText(msg);
+
+    return false; // フォーム送信を防ぐ
+  });
+});
+
 
     </script>
 
