@@ -10,28 +10,37 @@
 <body>
 
     <form class="w-75 mx-auto">
-        <p class="mt-3">氏名(全角ひらがな)</p>
-        <div>
-            <input class="form-control w-100 mt-1" name="name" placeholder="" required>
-        </div>
-        <p class="mt-3">診察券番号(半角数字 不明の場合は"0")</p>
-        <div>
-            <input class="form-control w-100 mt-1" name="bangou" required>
-        </div>
-        <p class="mt-3">一番お困りのことは?</p>
-        <div>
-            <input class="form-control w-100 mt-1" name="shushoujou" required>
-        </div>
-        <p class="mt-3">いつからどのような様子ですか?</p>
-        <div>
-            <input class="form-control w-100 mt-1" name="keika" required>
-        </div>
-        <p class="mt-3">37.5度以上の発熱の有無("はい" か "いいえ")</p>
-        <div>
-            <input class="form-control w-100 mt-1" name="hatunetu" required>
-        </div>
+        <p class="mt-3">名前</p>
+        <input class="form-control w-100 mt-1" name="name" required>
+      
+        <p class="mt-3">ふりがな</p>
+        <input class="form-control w-100 mt-1" name="furigana" required>
+      
+        <p class="mt-3">大学</p>
+        <input class="form-control w-100 mt-1" name="university" required>
+      
+        <p class="mt-3">学部</p>
+        <input class="form-control w-100 mt-1" name="gakubu" required>
+      
+        <p class="mt-3">学科</p>
+        <input class="form-control w-100 mt-1" name="gakka" required>
+      
+        <p class="mt-3">メールアドレス</p>
+        <input type="email" class="form-control w-100 mt-1" name="email" required>
+      
+        <p class="mt-3">電話番号</p>
+        <input type="tel" class="form-control w-100 mt-1" name="tel" required>
+      
+        <p class="mt-3">卒業年度</p>
+        <select class="form-control w-100 mt-1" name="sotsunen" required>
+          <option value="">選択してください</option>
+          <option value="26卒">26卒</option>
+          <option value="27卒">27卒</option>
+          <option value="28卒">28卒</option>
+          <option value="29卒">29卒</option>
+        </select>  
         <input type="submit" class="mt-4 btn btn-primary" value="送信">
-    </form>
+    </form>      
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -73,18 +82,20 @@
         const params = (new URL(document.location)).searchParams;
         const key = params.get('key');
 
-        $(function () {
-            $('form').submit(function () {
-                const name    = $('input[name="name"]').val();
-                const bangou = $('input[name="bangou"]').val();
-                const shushoujou  = $('input[name="shushoujou"]').val();
-                const keika  = $('input[name="keika"]').val();
-                const hatunetu = $('input[name="hatunetu"]').val();
-                const msg = `${name}\n${bangou}\n${shushoujou}\n${keika}\n${hatunetu}`;
-                sendText(msg);
-                return false;
-            });
-        });
+        $('form').submit(function () {
+  const name       = $('input[name="name"]').val();
+  const furigana   = $('input[name="furigana"]').val();
+  const university = $('input[name="university"]').val();
+  const gakubu     = $('input[name="gakubu"]').val();
+  const gakka      = $('input[name="gakka"]').val();
+  const email      = $('input[name="email"]').val();
+  const tel        = $('input[name="tel"]').val();
+  const sotsunen   = $('select[name="sotsunen"]').val();
+
+  const msg = `${name}\n${furigana}\n${university}\n${gakubu}\n${gakka}\n${email}\n${tel}\n${sotsunen}`;
+  sendText(msg);
+  return false;
+});
 
     </script>
 
