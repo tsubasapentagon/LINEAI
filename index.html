@@ -10,7 +10,7 @@
 <body>
 
     <form class="w-75 mx-auto">
-  <p class="mt-3">名前</p>
+  <p class="mt-3">1名前</p>
   <input class="form-control w-100 mt-1" name="name" placeholder="例：山田 太郎" required>
 
   <p class="mt-3">ふりがな</p>
@@ -94,7 +94,8 @@
   const tel        = $('input[name="tel"]').val();
   const sotsunen   = $('select[name="sotsunen"]').val();
 
-  const msg = `${name}\n${furigana}\n${university}\n${gakubu}\n${gakka}\n${email}\n${tel}\n${sotsunen}`;
+  const msg = "事前アンケート\n" +
+  `${name}\n${furigana}\n${university}\n${gakubu}\n${gakka}\n${email}\n${tel}\n${sotsunen}`;
   sendText(msg);
   return false;
 });
