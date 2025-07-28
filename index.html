@@ -94,10 +94,27 @@
   const tel        = $('input[name="tel"]').val();
   const sotsunen   = $('select[name="sotsunen"]').val();
 
-  const msg = "アンケート送信完了!利用開始！";
+  // ✅ スプレッドシートに送る
+  fetch("https://script.google.com/macros/s/AKfycbx3ZYaAgsV6H1bgm84BBj7fQ7Odf2Gy65N36rZ760yJHhSrS2tJ-4hmxGMZVmQXhcRctQ/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name, furigana, university, gakubu, gakka, email, tel, sotsunen
+    })
+  })
+  .then(res => res.text())
+  .then(text => console.log("GAS応答:", text))
+  .catch(err => console.error("送信失敗:", err));
+
+  // ✅ LINEへ完了メッセージ送信
+  const msg = "アンケート送信完了！利用開始！";
   sendText(msg);
+
   return false;
 });
+
 
     </script>
 
