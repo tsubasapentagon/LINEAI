@@ -46,11 +46,15 @@
         })
 
         function initializeLiff(liffId) {
-            liff.init({
-                liffId: liffId
-            }).then(() => {
+        liff.init({ liffId: liffId })
+            .then(() => {
+                if (!liff.isLoggedIn()) {
+                liff.login();
+                } else {
                 initializeApp();
-            }).catch((err) => {
+                }
+            })
+            .catch((err) => {
                 console.log('LIFF Initialization failed ', err);
             });
         }
