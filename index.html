@@ -10,7 +10,7 @@
 <body>
 
     <form class="w-75 mx-auto">
-  <p class="mt-3">1名前</p>
+  <p class="mt-3">名前</p>
   <input class="form-control w-100 mt-1" name="name" placeholder="例：山田 太郎" required>
 
   <p class="mt-3">ふりがな</p>
@@ -94,36 +94,11 @@
   const tel        = $('input[name="tel"]').val();
   const sotsunen   = $('select[name="sotsunen"]').val();
 
-  // ✅ スプレッドシートに送る
-  fetch("https://script.google.com/macros/s/AKfycbx3ZYaAgsV6H1bgm84BBj7fQ7Odf2Gy65N36rZ760yJHhSrS2tJ-4hmxGMZVmQXhcRctQ/exec", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name, furigana, university, gakubu, gakka, email, tel, sotsunen
-    })
-  })
-  .then(res => res.text())
-  .then(text => {
-    console.log("GAS応答:", text);
-
-    // ✅ GASの応答に応じて送信メッセージを変える
-    let msg = "アンケート送信完了！ご協力ありがとうございました。";
-
-    if (text.includes("ERROR")) {
-      msg = "⚠️ アンケートの送信に失敗しました。時間を置いて再度お試しください。";
-    } else if (!text.includes("OK")) {
-      msg = "⚠️ 正常に送信されたか確認できませんでした。";
-    }
-
-    sendText(msg);
-  })
-  .catch(err => {
-    console.error("送信失敗:", err);
-    sendText("⚠️ 通信エラーが発生しました。再送信をお願いします。");
-  });
-
+  const msg = `${name}\n${furigana}\n${university}\n${gakubu}\n${gakka}\n${email}\n${tel}\n${sotsunen}`;
+  sendText(msg);
   return false;
 });
+
     </script>
 
 </body>
